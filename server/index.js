@@ -6,14 +6,13 @@ import mongoose from 'mongoose';
 const app = express();
 const port = 3001;
 
-// MongoDB connection
-const MONGO_URI = 'mongodb://localhost:27017/Todo-list';
+
+const MONGO_URI = 'mongodb+srv://vuongchiminh320:minh220704@cluster0-vuongminhdev.tatxpcb.mongodb.net/my-todo-list?retryWrites=true&w=majority&appName=Cluster0-VuongMinhDev';
 
 mongoose.connect(MONGO_URI)
   .then(() => console.log('Connected to MongoDB'))
   .catch(err => console.error('Error connecting to MongoDB:', err));
 
-// Todo Schema
 const todoSchema = new mongoose.Schema({
   id: String,
   text: String,
@@ -24,11 +23,9 @@ const todoSchema = new mongoose.Schema({
 
 const Todo = mongoose.model('Todo', todoSchema);
 
-// Middleware
 app.use(cors());
 app.use(express.json());
 
-// Routes
 app.get('/api/todos', async (req, res) => {
   try {
     const todos = await Todo.find();
