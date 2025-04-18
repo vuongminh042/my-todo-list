@@ -12,7 +12,7 @@ const __dirname = path.dirname(__filename);
 const app = express();
 const port = process.env.PORT || 3001;
 
-const MONGO_URI = 'mongodb+srv://vuongchiminh320:minh220704@cluster0-vuongminhdev.tatxpcb.mongodb.net/my-todo-list?retryWrites=true&w=majority&appName=Cluster0-VuongMinhDev';
+const MONGO_URI = 'mongodb://localhost:27017/Todo-list';
 
 mongoose.connect(MONGO_URI)
   .then(() => console.log('✅ Connected to MongoDB'))
