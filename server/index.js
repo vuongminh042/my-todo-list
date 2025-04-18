@@ -2,16 +2,22 @@ import express from 'express';
 import cors from 'cors';
 import { v4 as uuidv4 } from 'uuid';
 import mongoose from 'mongoose';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
-const port = 3001;
-
+const port = process.env.PORT || 3001;
 
 const MONGO_URI = 'mongodb+srv://vuongchiminh320:minh220704@cluster0-vuongminhdev.tatxpcb.mongodb.net/my-todo-list?retryWrites=true&w=majority&appName=Cluster0-VuongMinhDev';
 
 mongoose.connect(MONGO_URI)
-  .then(() => console.log('Connected to MongoDB'))
-  .catch(err => console.error('Error connecting to MongoDB:', err));
+  .then(() => console.log('✅ Connected to MongoDB'))
+  .catch(err => console.error('❌ Error connecting to MongoDB:', err));
+
 
 const todoSchema = new mongoose.Schema({
   id: String,
@@ -23,8 +29,10 @@ const todoSchema = new mongoose.Schema({
 
 const Todo = mongoose.model('Todo', todoSchema);
 
+
 app.use(cors());
 app.use(express.json());
+
 
 app.get('/api/todos', async (req, res) => {
   try {
@@ -94,7 +102,15 @@ app.delete('/api/todos/:id', async (req, res) => {
   }
 });
 
-// Start server
+
+app.use(express.static(path.join(__dirname, '../dist')));
+
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../dist/index.html'));
+});
+
+
 app.listen(port, () => {
-  console.log(`Server running at http://localhost:${port}`);
+  console.log(`🚀 Server running at http://localhost:${port}`);
 });
