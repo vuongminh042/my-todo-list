@@ -4,7 +4,7 @@ import { Todo } from '../types/todo';
 
 // Create axios instance with timeout and error handling
 const api = axios.create({
-  baseURL: 'http://localhost:3001/api',
+  baseURL: 'https://my-todo-list-2.onrender.com',
   timeout: 5000,
   headers: {
     'Content-Type': 'application/json',
